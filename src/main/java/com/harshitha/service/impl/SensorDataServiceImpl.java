@@ -2,6 +2,7 @@ package com.harshitha.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 import org.springframework.beans.BeanUtils;
@@ -44,8 +45,10 @@ public class SensorDataServiceImpl implements SensorDataService {
 			stream = stream.filter(s->s.getReceivedDate().toLocalDate().isEqual(LocalDate.now()));
 		}
 		else if(from != null && to != null) {
-			stream = stream.filter(s->s.getReceivedDate().toLocalDate().isAfter(from.toLocalDate()) && 
-					s.getReceivedDate().toLocalDate().isBefore(to.toLocalDate()));
+			stream = stream.filter(s->s.getReceivedDate().toLocalDate().isAfter(from.toLocalDate().minusDays(1)) && 
+					s.getReceivedDate().toLocalDate().isBefore(to.toLocalDate().plusDays(1)));
+			
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		}
 		return stream.mapToDouble(SensorData::getTemp).average().getAsDouble();
 	}

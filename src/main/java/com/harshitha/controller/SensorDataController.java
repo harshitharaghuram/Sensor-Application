@@ -24,6 +24,7 @@ public class SensorDataController {
 	@Autowired
 	private SensorDataService sensorDataService;
 
+	// id is a dynamic variable and metric is the static value
 	@PostMapping("{id}/metric")
 	public ResponseEntity<Void> addMetric(
 			@PathVariable("id") final Long sensorId,
@@ -31,7 +32,7 @@ public class SensorDataController {
 		sensorDataService.addSensorData(sensorData, sensorId);
 		return ResponseEntity.ok().build();
 	}
-
+   // Handles GET type of requests where temperature data is fetched from Sensors
 	@GetMapping("{id}/metric/temp")
 	private ResponseEntity<Map<String, Double>> avgTemp(@PathVariable("id") final Long sensorId, 
 			@RequestParam("from") LocalDateTime from, @RequestParam("to") LocalDateTime to) throws Exception{
@@ -39,7 +40,7 @@ public class SensorDataController {
 		response.put("avgTemp", sensorDataService.avgTemp(sensorId, from, to));
 		return ResponseEntity.ok(response);
 	}
-
+	  // Handles GET type of requests where humidity data is fetched from Sensors
 	@GetMapping("{id}/metric/humidity")
 	private ResponseEntity<Map<String, Double>> avgHumidity(@PathVariable("id") final Long sensorId,
 			@RequestParam("from") LocalDateTime from, @RequestParam("to") LocalDateTime to) throws Exception{
@@ -47,7 +48,7 @@ public class SensorDataController {
 		response.put("avgHumidity", sensorDataService.avgHumidity(sensorId, from, to));
 		return ResponseEntity.ok(response);
 	}
-
+	  // Handles GET type of requests where wind data is fetched from Sensors
 	@GetMapping("{id}/metric/wind")
 	private ResponseEntity<Map<String, Double>> avgWind(@PathVariable("id") final Long sensorId,
 			@RequestParam("from") LocalDateTime from, @RequestParam("to") LocalDateTime to) throws Exception{

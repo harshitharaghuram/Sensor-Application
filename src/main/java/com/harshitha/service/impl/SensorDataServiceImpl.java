@@ -27,15 +27,23 @@ public class SensorDataServiceImpl implements SensorDataService {
 
 	@Override
 	public void addSensorData(final SensorDataRequest sensorData, final Long sensorId) throws Exception {
+		//Using primary key to retrieve the data
+		
 		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(Exception::new);
+		//Object created to store the retrieved data
+		
 		SensorData sensorDataInfo = new SensorData();
 		BeanUtils.copyProperties(sensorData, sensorDataInfo);
+		
+		//Retrieving data for current time from the sensors
 		sensorDataInfo.setReceivedDate(LocalDateTime.now());
 		sensorDataInfo.setSensor(requestedSensor);
 
 		sensorDataRepo.save(sensorDataInfo);
 	}
-
+	
+	//Retrieving temperature data from a sensor for a particular time period
+	
 	@Override
 	public double avgTemp(Long sensorId, LocalDateTime from, LocalDateTime to) throws Exception {
 		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(Exception::new);
@@ -46,12 +54,12 @@ public class SensorDataServiceImpl implements SensorDataService {
 		}
 		else if(from != null && to != null) {
 			stream = stream.filter(s->s.getReceivedDate().toLocalDate().isAfter(from.toLocalDate().minusDays(1)) && 
-					s.getReceivedDate().toLocalDate().isBefore(to.toLocalDate().plusDays(1)));
-			
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+					s.getReceivedDate().toLocalDate().isBefore(to.toLocalDate().plusDays(1)));	
 		}
 		return stream.mapToDouble(SensorData::getTemp).average().getAsDouble();
 	}
+	
+	//Retrieving humidity data from a sensor for particular a time period	
 
 	@Override
 	public double avgHumidity(Long sensorId, LocalDateTime from, LocalDateTime to) throws Exception  {
@@ -67,6 +75,8 @@ public class SensorDataServiceImpl implements SensorDataService {
 		}
 		return stream.mapToDouble(SensorData::getHumidity).average().getAsDouble();
 	}
+	
+	//Retrieving Wind data from a sensor for a particular time period
 
 	@Override
 	public double avgWind(Long sensorId, LocalDateTime from, LocalDateTime to) throws Exception {
@@ -82,5 +92,8 @@ public class SensorDataServiceImpl implements SensorDataService {
 		}
 		return stream.mapToDouble(SensorData::getWind).average().getAsDouble();
 	}
+	
+	
 
 }
+

@@ -5,6 +5,7 @@ import javax.validation.constraints.Pattern;
 
 public class SensorRequest {
 	
+	//Input Validation 
 	@NotBlank(message = "Country name cannot be null or empty string")
 	@Pattern(regexp="([a-zA-Z]+\\s)*[a-zA-Z]+",message="Country name cannot have numbers")
 	private String country;

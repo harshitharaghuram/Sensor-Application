@@ -1,3 +1,4 @@
+
 package com.harshitha.service.impl;
 
 import java.util.List;
@@ -17,10 +18,14 @@ public class SensorServiceImpl implements SensorService{
 	@Autowired
 	private SensorRepository sensorRepo;
 
+	
 	@Override
 	public Sensor createSensor(SensorRequest sensorRequest) {
 		final Sensor sensorInfo = new Sensor();
+		//The data is transferred from  sensorRequest to sensorInfo and is saved in the PostGRE SQL
+		
 		BeanUtils.copyProperties(sensorRequest, sensorInfo);
+		//The object obtained in the save function is passed to the controller
 		return sensorRepo.save(sensorInfo);
 	}
 

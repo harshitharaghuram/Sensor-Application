@@ -33,7 +33,8 @@ public class SensorDataServiceImplTest {
 
 	@Mock
 	SensorDataRepository dRepo;
-
+	
+// Test Case to compute Average Temperature 
 	@Test
 	public void testAvgTemp() throws Exception {
 		List<SensorData> sensorDataInfo = new ArrayList<>();
@@ -46,8 +47,6 @@ public class SensorDataServiceImplTest {
 
 		assertThat(service.avgTemp(1L, null, null)).isEqualTo(2.0);
 	}
-	
-	
 	@Test
 	public void testAvgTemp1() throws Exception {
 		List<SensorData> sensorDataInfo = new ArrayList<>();
@@ -61,7 +60,6 @@ public class SensorDataServiceImplTest {
 
 		assertThat(service.avgTemp(1L, LocalDateTime.now(), null)).isEqualTo(2.0);
 	}
-	
 	@Test
 	public void testAvgTemp2() throws Exception {
 		List<SensorData> sensorDataInfo = new ArrayList<>();
@@ -73,5 +71,91 @@ public class SensorDataServiceImplTest {
 		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
 
 		assertThat(service.avgTemp(1L, LocalDateTime.now().minusDays(1), LocalDateTime.now())).isEqualTo(2.0);
+	}	
+	
+// Test Case to compute Average Humidity
+	@Test
+	public void testAvgHumidity() throws Exception {
+		List<SensorData> sensorDataInfo = new ArrayList<>();
+		SensorData sensorData = new SensorData(); sensorData.setTemp(2.0); 
+		sensorData.setReceivedDate(LocalDateTime.now());
+		sensorDataInfo.add(sensorData);
+		Sensor sensor = new Sensor();
+		sensor.setSensorData(sensorDataInfo);
+		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
+
+		assertThat(service.avgTemp(1L, null, null)).isEqualTo(2.0);
 	}
+	
+	@Test
+	public void testAvgHumidity1() throws Exception {
+		List<SensorData> sensorDataInfo = new ArrayList<>();
+		SensorData sensorData = new SensorData(); sensorData.setTemp(2.0); 
+		sensorData.setReceivedDate(LocalDateTime.now());
+		sensorDataInfo.add(sensorData);
+		Sensor sensor = new Sensor();
+		sensor.setSensorData(sensorDataInfo);
+		
+		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
+
+		assertThat(service.avgTemp(1L, LocalDateTime.now(), null)).isEqualTo(2.0);
+	}
+	
+	@Test
+	public void testAvgHumidity2() throws Exception {
+		List<SensorData> sensorDataInfo = new ArrayList<>();
+		SensorData sensorData = new SensorData(); sensorData.setTemp(2.0); 
+		sensorData.setReceivedDate(LocalDateTime.now());
+		sensorDataInfo.add(sensorData);
+		Sensor sensor = new Sensor();
+		sensor.setSensorData(sensorDataInfo);
+		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
+
+		assertThat(service.avgTemp(1L, LocalDateTime.now().minusDays(1), LocalDateTime.now())).isEqualTo(2.0);
+	}	
+	
+// Test Case to compute Average Wind	
+	@Test
+	public void testAvgWind() throws Exception {
+		List<SensorData> sensorDataInfo = new ArrayList<>();
+		SensorData sensorData = new SensorData(); sensorData.setTemp(2.0); 
+		sensorData.setReceivedDate(LocalDateTime.now());
+		sensorDataInfo.add(sensorData);
+		Sensor sensor = new Sensor();
+		sensor.setSensorData(sensorDataInfo);
+		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
+
+		assertThat(service.avgTemp(1L, null, null)).isEqualTo(2.0);
+	}
+	
+	
+	@Test
+	public void testAvgWind1() throws Exception {
+		List<SensorData> sensorDataInfo = new ArrayList<>();
+		SensorData sensorData = new SensorData(); sensorData.setTemp(2.0); 
+		sensorData.setReceivedDate(LocalDateTime.now());
+		sensorDataInfo.add(sensorData);
+		Sensor sensor = new Sensor();
+		sensor.setSensorData(sensorDataInfo);
+		
+		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
+
+		assertThat(service.avgTemp(1L, LocalDateTime.now(), null)).isEqualTo(2.0);
+	}
+	
+	@Test
+	public void testAvgWind2() throws Exception {
+		List<SensorData> sensorDataInfo = new ArrayList<>();
+		SensorData sensorData = new SensorData(); sensorData.setTemp(2.0); 
+		sensorData.setReceivedDate(LocalDateTime.now());
+		sensorDataInfo.add(sensorData);
+		Sensor sensor = new Sensor();
+		sensor.setSensorData(sensorDataInfo);
+		when(repo.findBySensorId(ArgumentMatchers.any())).thenReturn(Optional.of(sensor));
+
+		assertThat(service.avgTemp(1L, LocalDateTime.now().minusDays(1), LocalDateTime.now())).isEqualTo(2.0);
+	}	
+	
+	
+	
 }

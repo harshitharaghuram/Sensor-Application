@@ -3,6 +3,8 @@ package com.harshitha.dto;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+//Validation for temperature, Wind and Humidity parameters  
+
 public class SensorDataRequest {
 
 	@NotNull(message = "Temp cannot be null")

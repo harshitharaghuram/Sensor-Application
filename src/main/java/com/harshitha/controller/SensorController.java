@@ -1,3 +1,4 @@
+// The controller is used to monitor data flow and decides which function has to be executed.
 package com.harshitha.controller;
 
 import java.util.HashMap;
@@ -18,19 +19,24 @@ import com.harshitha.model.Sensor;
 import com.harshitha.service.iface.SensorService;
 
 @RestController
+// RestController annotation is used to build RESTful web services
 public class SensorController {
 
 	@Autowired
 	private SensorService sensorService;
-
+	//Creation of new sensors.
+	
 	@PostMapping(value = "/")
 	public ResponseEntity<Map<String, Long>> createSensor(@Valid @RequestBody final SensorRequest sensorRequest) {
 		final Sensor sensorInfo = sensorService.createSensor(sensorRequest);
 		Map<String, Long> response = new HashMap<>();
+		//sensorId is the primary key 
+		
 		response.put("sensorId", sensorInfo.getSensorId());
 		return ResponseEntity.ok(response);
 	}
 	
+	//Data from sensors.	
 	@GetMapping("/")
 	public ResponseEntity<List<Sensor>> listSensors(){
 		return ResponseEntity.ok(sensorService.listSensors());

@@ -12,4 +12,4 @@ Exception Handlling is done to ensure uninterrupted program flow even when unexp
 
 PostgreSQL is used to store the data and create a database for this project. Eclipse Integrated Development Environment is used to write the computer programs. POSTMAN is used to verify the working of the APIs.
 
-The code can be run on the Eclipse workspace.
+The code can be run on any Java Programming Platform by clicking on the play button. mvn Clean Install can also be used. 

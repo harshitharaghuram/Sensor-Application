@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
+import com.harshitha.exception.RecordNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,10 @@ public class SensorDataServiceImpl implements SensorDataService {
 	private SensorDataRepository sensorDataRepo;
 
 	@Override
-	public void addSensorData(final SensorDataRequest sensorData, final Long sensorId) throws Exception {
+	public void addSensorData(final SensorDataRequest sensorData, final Long sensorId) throws RecordNotFoundException {
 		//Using primary key to retrieve the data
 		
-		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(Exception::new);
+		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(RecordNotFoundException::new);
 		//Object created to store the retrieved data
 		
 		SensorData sensorDataInfo = new SensorData();
@@ -45,8 +46,8 @@ public class SensorDataServiceImpl implements SensorDataService {
 	//Retrieving temperature data from a sensor for a particular time period
 	
 	@Override
-	public double avgTemp(Long sensorId, LocalDateTime from, LocalDateTime to) throws Exception {
-		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(Exception::new);
+	public double avgTemp(Long sensorId, LocalDateTime from, LocalDateTime to) throws RecordNotFoundException {
+		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(RecordNotFoundException::new);
 
 		Stream<SensorData> stream = requestedSensor.getSensorData().stream();
 		if(from == null && to == null) {
@@ -62,8 +63,8 @@ public class SensorDataServiceImpl implements SensorDataService {
 	//Retrieving humidity data from a sensor for particular a time period	
 
 	@Override
-	public double avgHumidity(Long sensorId, LocalDateTime from, LocalDateTime to) throws Exception  {
-		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(Exception::new);
+	public double avgHumidity(Long sensorId, LocalDateTime from, LocalDateTime to) throws RecordNotFoundException  {
+		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(RecordNotFoundException::new);
 
 		Stream<SensorData> stream = requestedSensor.getSensorData().stream();
 		if(from == null && to == null) {
@@ -79,8 +80,8 @@ public class SensorDataServiceImpl implements SensorDataService {
 	//Retrieving Wind data from a sensor for a particular time period
 
 	@Override
-	public double avgWind(Long sensorId, LocalDateTime from, LocalDateTime to) throws Exception {
-		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(Exception::new);
+	public double avgWind(Long sensorId, LocalDateTime from, LocalDateTime to) throws RecordNotFoundException {
+		Sensor requestedSensor = sensorRepo.findBySensorId(sensorId).orElseThrow(RecordNotFoundException::new);
 
 		Stream<SensorData> stream = requestedSensor.getSensorData().stream();
 		if(from == null && to == null) {
